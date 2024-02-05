@@ -8,6 +8,6 @@ namespace UniversityRegistrar.Models
 
     public string StudentName { get; set; }
 
-    public DateTime Enrollment { get; }
+    public DateTime Enrollment { get; set; } = DateTime.Now;
   }
 }
