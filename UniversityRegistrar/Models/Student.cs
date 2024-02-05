@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace UniversityRegistrar.Models
 {
@@ -9,5 +10,7 @@ namespace UniversityRegistrar.Models
     public string StudentName { get; set; }
 
     public DateTime Enrollment { get; set; } = DateTime.Now;
+
+    public List<CourseStudent> JoinEntities { get;}
   }
 }

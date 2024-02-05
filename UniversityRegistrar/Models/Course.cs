@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace UniversityRegistrar.Models
 {
@@ -8,5 +9,7 @@ namespace UniversityRegistrar.Models
     public string CourseName { get; set; }
     
     public string CourseNumber { get; set; }
+
+    public List<CourseStudent> JoinEntities { get;}
   }
 }
