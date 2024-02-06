@@ -74,5 +74,26 @@ namespace UniversityRegistrar.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AddCourse(int id)
+    {
+      Student thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
+      ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "CourseName");
+      return View(thisStudent);
+    }
+
+    [HttpPost]
+    public ActionResult AddCourse(Student student, int courseId)
+    {
+      #nullable enable
+      CourseStudent? joinEntity = _db.CourseStudents.FirstOrDefault(join => (join.CourseId == courseId && join.StudentId == student.StudentId));
+      #nullable disable
+      if (joinEntity == null && courseId != 0)
+      {
+        _db.CourseStudents.Add(new CourseStudent() { CourseId = courseId, StudentId = student.StudentId});
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = student.StudentId });
+    }
   }
 }
