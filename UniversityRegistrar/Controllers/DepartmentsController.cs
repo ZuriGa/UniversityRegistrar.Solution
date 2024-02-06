@@ -20,5 +20,48 @@ namespace UniversityRegistrar.Controllers
     {
       return View(_db.Departments.ToList());
     }
+
+    public ActionResult Details(int id)
+    {
+      Department thisDepartment = _db.Departments
+          .Include(department => department.DepartmentJoinEntities)
+          .ThenInclude(join => join.Course)
+          .FirstOrDefault(department => department.DepartmentId == id);
+      return View(thisDepartment);
+    }
+
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Department department)
+    {
+      _db.Departments.Add(department);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult AddCourse(int id)
+    {
+      Department thisDepartment = _db.Departments.FirstOrDefault(departments => departments.DepartmentId == id);
+      ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "CourseName");
+      return View(thisDepartment);
+    }
+
+    [HttpPost]
+    public ActionResult AddCourse(Department department, int courseId)
+    {
+#nullable enable
+      CourseDepartment? departmentJoinEntity = _db.CourseDepartments.FirstOrDefault(join => (join.CourseId == courseId && join.DepartmentId == department.DepartmentId));
+#nullable disable
+      if (departmentJoinEntity == null && courseId != 0)
+      {
+        _db.CourseDepartments.Add(new CourseDepartment() { CourseId = courseId, DepartmentId = department.DepartmentId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = department.DepartmentId });
+    }
   }
 }

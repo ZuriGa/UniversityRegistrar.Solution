@@ -40,6 +40,9 @@ namespace UniversityRegistrar.Controllers
     public ActionResult Details(int id)
     {
       Course thisCourse = _db.Courses
+      
+                              .Include(course => course.DepartmentJoinEntities)
+                              .ThenInclude (join => join.Department)
                               .Include(course => course.JoinEntities)
                               .ThenInclude(join => join.Student)
                               .FirstOrDefault(course => course.CourseId == id);
@@ -104,5 +107,26 @@ namespace UniversityRegistrar.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AddDepartment(int id)
+    {
+      Course thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "DepartmentName");
+      return View(thisCourse);
+    }
+
+    [HttpPost]
+    public ActionResult AddDepartment(Course course, int departmentId)
+    {
+      #nullable enable
+      CourseDepartment? departmentJoinEntity = _db.CourseDepartments.FirstOrDefault(join => (join.DepartmentId == departmentId && join.CourseId == course.CourseId));
+      #nullable disable
+      if (departmentJoinEntity == null && departmentId != 0)
+      {
+        _db.CourseDepartments.Add(new CourseDepartment() { DepartmentId = departmentId, CourseId = course.CourseId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = course.CourseId });
+    }  
   }
 }

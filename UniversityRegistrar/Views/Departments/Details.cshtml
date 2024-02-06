@@ -1,0 +1,32 @@
+@{
+  Layout = "_Layout";
+}
+
+@using UniversityRegistrar.Models
+@model UniversityRegistrar.Models.Department
+@using System.Collections.Generic
+
+<h2>Department Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.DepartmentName): @Html.DisplayFor(model => model.DepartmentName)</h3>
+
+@if(@Model.DepartmentJoinEntities.Count == 0)
+{
+  <p>This department does not have any courses.</p>
+}
+else 
+{
+  <h4>Courses in this department:</h4>
+  <ul>
+  @foreach(CourseDepartment join in Model.DepartmentJoinEntities)
+  {
+      <li>@join.Course.CourseName </li>
+  }
+  </ul>
+  }
+
+<p>@Html.ActionLink("Add a Department", "AddDepartment", new { id = Model.DepartmentId})</p>
+<p>@Html.ActionLink("Back to List", "Index")</p>
+<p>@Html.ActionLink("Edit a Department", "Edit", new { id = Model.DepartmentId })</p>
+<p>@Html.ActionLink("Delete a Department", "Delete", new { id = Model.DepartmentId })</p>
+<p>@Html.ActionLink("Add a New Department", "Create", "Departments")</p>

@@ -1,10 +1,5 @@
-@{
- Layout = "_Layout";
-}
 
-@model UniversityRegistrar.Models.Course;
-@using UniversityRegistrar.Models;
-@using System.Collections.Generic;
+@model UniversityRegistrar.Models.Course
 
 <h2>Course Details</h2>
 <hr />
@@ -33,6 +28,7 @@ else
     @foreach (var join in Model.JoinEntities)
     {
         <li>@join.Student.StudentName</li>
+        // Assuming you have a form or action to delete the student from the course
     }
     </ul>
 }
@@ -42,8 +38,4 @@ else
 }
 
 <p>@Html.ActionLink("Add a student", "AddStudent", new { id = Model.CourseId })</p>
-<p>@Html.ActionLink("Add a student", "AddStudent", new { id = Model.CourseId })</p>
-<p>@Html.ActionLink("Back to list", "Index")</p>
-<p>@Html.ActionLink("Edit Course", "Edit", new { id = Model.CourseId })</p>
-<p>@Html.ActionLink("Delete Course", "Delete", new { id = Model.CourseId })</p>
-<p>@Html.ActionLink("Add department", "AddDepartment", new { id = Model.CourseId})</p>
+// Additional links for course management
