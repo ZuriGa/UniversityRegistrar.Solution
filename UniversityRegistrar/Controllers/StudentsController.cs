@@ -39,8 +39,12 @@ namespace UniversityRegistrar.Controllers
     
     public ActionResult Details(int id)
     {
-      Student selectedStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
-      return View(selectedStudent);
+      Student thisStudent = _db.Students
+                            .Include(student => student.Courses)
+                            .ThenInclude(student => student.JoinEntities)
+                            .ThenInclude(join => join.Course)
+                            .FirstOrDefault(student => student.StudentId == id);
+      return View(thisStudent);
     }
 
     public ActionResult Edit(int id)

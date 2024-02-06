@@ -11,6 +11,6 @@ namespace UniversityRegistrar.Models
 
     public DateTime Enrollment { get; set; } = DateTime.Now;
 
-    public List<CourseStudent> JoinEntities { get;}
+    public List<CourseStudent> JoinEntities { get; set; }
   }
 }
