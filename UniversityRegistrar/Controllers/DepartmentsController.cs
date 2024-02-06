@@ -63,5 +63,19 @@ namespace UniversityRegistrar.Controllers
       }
       return RedirectToAction("Details", new { id = department.DepartmentId });
     }
+
+    public ActionResult Edit(int id)
+    {
+      Department thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
+      return View(thisDepartment);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Department department)
+    {
+      _db.Departments.Update(department);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
