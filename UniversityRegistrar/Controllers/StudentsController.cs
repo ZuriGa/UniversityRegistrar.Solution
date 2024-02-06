@@ -37,15 +37,16 @@ namespace UniversityRegistrar.Controllers
       return RedirectToAction("Index");
     }
     
-    public ActionResult Details(int id)
-    {
-      Student thisStudent = _db.Students
-                            .Include(student => student.Courses)
-                            .ThenInclude(student => student.JoinEntities)
-                            .ThenInclude(join => join.Course)
-                            .FirstOrDefault(student => student.StudentId == id);
-      return View(thisStudent);
-    }
+  public ActionResult Details(int id)
+   {
+     Student thisStudent = _db.Students
+                           // .Include(student => student.Courses)
+                           .Include(student => student.JoinEntities)
+                           .ThenInclude(join => join.Course)
+                           .FirstOrDefault(student => student.StudentId == id);
+     return View(thisStudent);
+   }
+
 
     public ActionResult Edit(int id)
     {

@@ -19,26 +19,13 @@ else
 {
   <h4>Students in this course:</h4>
   <ul>
-  @foreach(CourseStudent in Model.JoinEntities)
+  @foreach(CourseStudent join in Model.JoinEntities)
   {
-    string students = "";
-    @if(student.JoinEntities.Count == 0)
-    {
-      students = "This course does not have any students";
+      <li>@join.Student.StudentName </li>
     }
-    else
-    {
-      List<string> studentList = new List<string>();
-      @foreach (CourseStudent join in Model.JoinEntities)
-      {
-        studentList.Add(join.Student.StudentName);
-      }
-      students = String.Join(", ", studentList);
-    }
-    <li>@student.StudentName </li>
-  }
+    
   </ul>
-}
+  }
 
 <p>@Html.ActionLink("Back to list", "Index")</p>
 <p>@Html.ActionLink("Edit Course", "Edit", new { id = Model.CourseId })</p>

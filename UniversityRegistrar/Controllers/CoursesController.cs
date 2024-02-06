@@ -12,7 +12,6 @@ namespace UniversityRegistrar.Controllers
   public class CoursesController : Controller
   {
     private readonly UniversityRegistrarContext _db;
-
     public CoursesController(UniversityRegistrarContext db)
     {
       _db = db;
@@ -41,8 +40,7 @@ namespace UniversityRegistrar.Controllers
     public ActionResult Details(int id)
     {
       Course thisCourse = _db.Courses
-                              .Include(course => course.Students)
-                              .ThenInclude(course => course.JoinEntities)
+                              .Include(course => course.JoinEntities)
                               .ThenInclude(join => join.Student)
                               .FirstOrDefault(course => course.CourseId == id);
       return View(thisCourse);
