@@ -10,6 +10,10 @@ namespace UniversityRegistrar.Models
     
     public string CourseNumber { get; set; }
 
-    public List<CourseStudent> JoinEntities { get; set; }
+    public List<CourseStudent> JoinEntities { get; }
+
+    public List<CourseDepartment> DepartmentJoinEntities { get; }
+
+
   }
 }
