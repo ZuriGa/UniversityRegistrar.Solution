@@ -21,13 +21,16 @@ else
   @foreach(CourseDepartment join in Model.DepartmentJoinEntities)
   {
       <li>@join.Course.CourseName </li>
+      @using (Html.BeginForm("DeleteJoin", "Departments"))
+{
+  @Html.Hidden("joinId", @join.CourseDepartmentId)
+  <input type="submit" value="Delete"/>
+}
   }
   </ul>
   }
 
-<p>@Html.ActionLink("Add a Department", "AddDepartment", new { id = Model.DepartmentId})</p>
 <p>@Html.ActionLink("Back to List", "Index")</p>
 <p>@Html.ActionLink("Edit a Department", "Edit", new { id = Model.DepartmentId })</p>
-<p>@Html.ActionLink("Delete a Department", "Delete", new { id = Model.DepartmentId })</p>
 <p>@Html.ActionLink("Add a New Department", "Create", "Departments")</p>
 <p>@Html.ActionLink("Delete Department", "Delete", new { id = Model.DepartmentId })</p>

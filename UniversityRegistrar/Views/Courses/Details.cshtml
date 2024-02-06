@@ -18,6 +18,11 @@
     @foreach (var join in Model.DepartmentJoinEntities)
     {
         <li>@join.Department.DepartmentName</li>
+        @using (Html.BeginForm("DepartmentDeleteJoin", "Courses"))
+      {
+        @Html.Hidden("joinId", @join.DepartmentId)
+        <input type="submit" value="Delete"/>
+    }
     }
     </ul>
 }
@@ -41,9 +46,8 @@ else
     <p>This course does not have any students enrolled.</p>
 }
 
-<p>@Html.ActionLink("Add a student", "AddStudent", new { id = Model.CourseId })</p>
-<p>@Html.ActionLink("Add a student", "AddStudent", new { id = Model.CourseId })</p>
+<p>@Html.ActionLink("Add a Student", "AddStudent", new { id = Model.CourseId })</p>
 <p>@Html.ActionLink("Back to list", "Index")</p>
 <p>@Html.ActionLink("Edit Course", "Edit", new { id = Model.CourseId })</p>
 <p>@Html.ActionLink("Delete Course", "Delete", new { id = Model.CourseId })</p>
-<p>@Html.ActionLink("Add department", "AddDepartment", new { id = Model.CourseId})</p>
+<p>@Html.ActionLink("Add Department", "AddDepartment", new { id = Model.CourseId})</p>

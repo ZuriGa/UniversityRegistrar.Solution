@@ -128,5 +128,14 @@ namespace UniversityRegistrar.Controllers
       }
       return RedirectToAction("Details", new { id = course.CourseId });
     }  
+
+    [HttpPost]
+    public ActionResult DepartmentDeleteJoin(int joinId)
+    {
+      CourseDepartment joinEntry = _db.CourseDepartments.FirstOrDefault(entry => entry.CourseDepartmentId == joinId);
+      _db.CourseDepartments.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
