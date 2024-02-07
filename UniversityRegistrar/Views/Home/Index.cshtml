@@ -4,10 +4,10 @@
 
 @using UniversityRegistrar.Models;
 
-<h1>Univeristy Registrar</h1>
-<hr />
 
-<h4>Courses</h4>
+<div class="card">
+<h2>Courses</h2>
+<hr />
 @if (Model["courses"].Length == 0)
 {
   <p>No courses have been added yet!</p>
@@ -18,8 +18,12 @@
     <li>@Html.ActionLink(@course.CourseName, "Details", "Courses", new { id = @course.CourseId}) </li>
   }
 </ul>
+</div>
 
-<h4>Students</h4>
+<hr />
+<div class="card">
+<h2>Students</h2>
+<hr />
 @if(Model["students"].Length == 0)
 {
   <p>No students have been added yet</p>
@@ -30,10 +34,13 @@
     <li>@Html.ActionLink(@student.StudentName, "Details", "Students", new { id = @student.StudentId })</li>
   }
 </ul>
+</div>
+
 
 <hr />
-
-<h4>Departments</h4>
+<div class="card">
+<h2>Departments</h2>
+<hr />
 @if(Model["departments"].Length == 0)
 {
   <p>No departments have been added yet</p>
@@ -44,9 +51,9 @@
     <li>@Html.ActionLink(@department.DepartmentName, "Details", "Departments", new { id = @department.DepartmentId })</li>
   }
 </ul>
-
+</div>
 <hr />
 
-<p>@Html.ActionLink("Student List", "Index", "Students")</p>
-<p>@Html.ActionLink("Course List", "Index", "Courses")</p>
-<p>@Html.ActionLink("Department List", "Index", "Departments")</p>
+<button type="button" class="btn btn-outline-dark btn-lg">@Html.ActionLink("Student List", "Index", "Students")</button>
+<button type="button" class="btn btn-outline-dark btn-lg">@Html.ActionLink("Course List", "Index", "Courses")</button>
+<button type="button" class="btn btn-outline-dark btn-lg">@Html.ActionLink("Department List", "Index", "Departments")</button>
